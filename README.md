@@ -1,4 +1,4 @@
 # app
 dysarthric speech interpretation app
 
-saanvi log in dude
+saanvi lock in dude
