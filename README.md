@@ -1,4 +1,4 @@
 # app
 dysarthric speech interpretation app
 
-model trained on TORGO speaker F03
+fine-tuned wav2vec2 on TORGO speaker F03
