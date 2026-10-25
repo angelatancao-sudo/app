@@ -1,4 +1,4 @@
 # Phonema
-dysarthric speech interpretation app
-
-fine-tuned wav2vec2 on TORGO speaker F03
+Dysarthric speech interpretation app
+Fine-tuned wav2vec2 on TORGO speaker F03
+Built with React 
