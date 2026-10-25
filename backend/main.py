@@ -13,7 +13,6 @@ from transformers import Wav2Vec2Model, Wav2Vec2Processor
 
 app = FastAPI()
 
-# lets your friend's frontend (running on a different URL) actually call this API
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # fine for a hackathon/demo; restrict later if needed
@@ -24,14 +23,13 @@ app.add_middleware(
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
 
-# load your FROZEN encoder ONCE at startup (not per-request — too slow)
+# load encoder once at startup
 base_model = Wav2Vec2Model.from_pretrained("facebook/wav2vec2-base-960h")
 base_model.config.apply_spec_augment = False
 lora_wav2vec = PeftModel.from_pretrained(base_model, "saved_models/chosen_adapter").to(device)
 lora_wav2vec.eval()
 
 # in-memory storage of each user's enrollment data + trained classifier
-# (fine for a demo; a real product would use a database)
 user_data = {}       # { user_id: [ {phrase, audio_array}, ... ] }
 user_models = {}     # { user_id: trained classifier }
 all_transcripts_per_user = {}  # { user_id: [phrase1, phrase2, ...] }
